@@ -6,7 +6,7 @@
     "date":"August 2016 - September 2016",
     "desc":"<p>Programmed both the engine and the gameplay from scratch. Small engine that was created includes game object rendering with the 3 essential position, rotation, and scaling transformations, particle system with fading transparency, bounding box static collision, and basic physics up to acceleration. Gameplay includes a menu flow, random asteroids that split based on scale, and powerups. Click <a href=\"http://titandino.github.io/canvas-game/\" target=\"_blank\">here</a> to play the game.</p>",
     "img":"img/asteroids.png",
-    "roles":["Engine Programmer", "Content Programmer"]
+    "type":"game"
   },
   {
     "name":"RuneScape Private Servers",
@@ -15,7 +15,7 @@
     "date":"June 2007 - July 2016",
     "desc":"<p>Reverse engineering obfuscated Java game clients and writing servers that communicate with them to both emulate the real game and create custom content that players suggest ingame or on the website forum. An example showcasing boss mechanics can be seen on my YouTube channel <a href=\"https://www.youtube.com/watch?v=q2-tvHWhIBA\" target=\"_blank\">here</a>.</p>",
     "img":"img/runescape.png",
-    "roles":["Programmer", "Project Manager"]
+    "type":"game"
   },
   {
     "name":"Curiosity",
@@ -24,105 +24,6 @@
     "date":"April 2013 - June 2013",
     "desc":"<p>Programmed many engine elements including particle systems and an audio controller using the FMOD API. Worked a lot on the physics and graphics end which involved matrices for sprite transformations and vectors for physics and collision detection.</p>",
     "img":"img/curiosity.png",
-    "roles":["Engine Programmer", "Content Programmer"]
-  },
-  {
-    "name":"Filler 1",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 2",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 3",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 4",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 5",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 6",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 7",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 8",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 9",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 10",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
-  },
-  {
-    "name":"Filler 11",
-    "role":"Pro Gramper",
-    "shortDesc":"What is there here to get what it is you know what it is.",
-    "date":"Morndas, 13th day of Heartfire, 3E 320",
-    "desc":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
-    "img":"img/kalphites.png",
-    "roles":["Pro Gramper"]
+    "type":"game"
   }
 ]

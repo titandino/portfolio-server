@@ -1,11 +1,16 @@
 var express = require('express');
 var app = express();
-var fs = require('fs');
 
-app.get('/projects', function(req, res) {
-  fs.readFile(__dirname + '/data/projects.json', 'utf8', function(err, data) {
-    res.end(data);
-  });
+app.get('/', function(req, res) {
+  res.end('Root');
+});
+
+app.get('/data/create', function(req, res) {
+
+});
+
+app.get('/data/projects', function(req, res) {
+
 });
 
 var server = app.listen(80, function() {
