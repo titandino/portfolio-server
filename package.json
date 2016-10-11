@@ -1,0 +1,29 @@
+{
+  "name": "portfolio-server",
+  "version": "1.0.0",
+  "description": "Server to manage various projects for my portfolio",
+  "main": "server.js",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "fs": "^0.0.1-security",
+    "mongoose": "^4.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "exit",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/titandino/portfolio-server.git"
+  },
+  "author": "Trenton Kress",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/titandino/portfolio-server/issues"
+  },
+  "homepage": "https://github.com/titandino/portfolio-server#readme"
+}
