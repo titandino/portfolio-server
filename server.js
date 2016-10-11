@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -9,7 +11,7 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost/portfolioProjects', function(err) {
   if (err)
-  throw err;
+    throw err;
   console.log('Successfully connected to MongoDB');
 });
 
@@ -78,15 +80,20 @@ app.get('/', function(req, res) {
 
 app.post('/login', function(req, res) {
   Auth.findOne({ username: req.body.details.username }, function(err, user) {
+    if (err)
+      throw err;
+    user.checkPass(req.body.details.password, function(err, isMatch) {
       if (err)
         throw err;
-      user.checkPass(req.body.details.password, function(err, isMatch) {
-          if (err)
-            throw err;
-          console.log('Authentication request for ' + req.body.details.username, isMatch);
-      });
+      console.log('Authentication request for ' + req.body.details.username, isMatch);
+      if (isMatch) {
+        res.end('Logged in.');
+      } else {
+        res.end('Invalid login details.');
+      }
+    });
   });
-})
+});
 
 app.post('/projects', function(req, res) {
   var projectParams = {
@@ -104,7 +111,7 @@ app.post('/projects', function(req, res) {
       if (req.body.project[key]) {
         projectParams[key] = req.body.project[key];
       } else {
-        res.end('Empty form value', key);
+        res.end('Missing form value', key);
       }
     }
   }
