@@ -5,6 +5,7 @@ const app = express();
 const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const jsonToken = require('jsonwebtoken');
 
 const config = require('./config');
 
@@ -21,10 +22,7 @@ mongoose.connect(config.database, function(err) {
   console.log('Successfully connected to MongoDB');
 });
 
-app.use(bodyParser.urlencoded(
-  { extended: true }
-));
-
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
@@ -41,27 +39,39 @@ app.get('/', function(req, res) {
 const apiRoutes = express.Router();
 
 apiRoutes.post('/login', function(req, res) {
-  Auth.findOne({ username: req.body.details.username }, function(err, auth) {
-    if (err)
-      throw err;
-    auth.checkPass(req.body.details.password, function(err, isMatch) {
+  if (!req.body.username || !req.body.password) {
+    res.end('Username or password not given.');
+  } else {
+    Auth.findOne({ username: req.body.username }, function(err, auth) {
       if (err)
         throw err;
-      console.log('Authentication request for ' + req.body.details.username, isMatch);
-      if (isMatch) {
-        let token = jwt.sign(user, app.get('tokenKey'), {
-          expiresInMinutes: 1440
-        });
-
-        // return the information including token as JSON
+      if (!auth) {
         res.json({
-          success: true,
-          message: 'Login sucessful.',
-          token: token
+          success: false,
+          message: 'Username or password incorrect.',
+        });
+      } else {
+        auth.checkPass(req.body.password, function(err, isMatch) {
+          if (err)
+            throw err;
+          console.log('Authentication request for ' + req.body.username, isMatch);
+          if (isMatch) {
+            let token = jsonToken.sign(auth, app.get('tokenKey'), {
+              expiresIn: config.token_expiry_time
+            });
+
+            // return the information including token as JSON
+            res.json({
+              success: true,
+              message: 'Login sucessful.',
+              token: token,
+              expiresIn: Date.now() + (config.token_expiry_time * 1000)
+            });
+          }
         });
       }
     });
-  });
+  }
 });
 
 apiRoutes.get('/projects', function(req, res) {
@@ -88,7 +98,7 @@ apiRoutes.use(function(req, res, next) {
   // decode token
   if (token) {
     // verifies secret and checks exp
-    jwt.verify(token, app.get('tokenKey'), function(err, decoded) {
+    jsonToken.verify(token, app.get('tokenKey'), function(err, decoded) {
       if (err) {
         return res.json({
           success: false,
@@ -123,8 +133,8 @@ apiRoutes.post('/projects', function(req, res) {
 
   for (let key in projectParams) {
     if (projectParams.hasOwnProperty(key)) {
-      if (req.body.project[key]) {
-        projectParams[key] = req.body.project[key];
+      if (req.body[key]) {
+        projectParams[key] = req.body[key];
       } else {
         res.end('Missing form value', key);
       }
@@ -137,9 +147,15 @@ apiRoutes.post('/projects', function(req, res) {
       console.log(err);
       res.end('Error adding project');
     } else {
-      console.log(newProject);
+      console.log('Successfully added: ' + projectParams.name);
       res.end('Successfully added: ' + projectParams.name);
     }
+  });
+});
+
+apiRoutes.delete('/projects', function(req, res) {
+  Project.findById(req.body.projId).remove().exec(function() {
+    res.end('Successfully deleted.');
   });
 });
 
