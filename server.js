@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost/portfolioProjects', function(err) {
   console.log('Successfully connected to MongoDB');
 });
 
-var authSchema = new mongoose.Schema({
+const authSchema = new mongoose.Schema({
   username: String,
   password: String
 });
@@ -48,9 +48,9 @@ authSchema.methods.checkPass = function(password, callback) {
   });
 };
 
-var Auth = mongoose.model('Auth', authSchema);
+const Auth = mongoose.model('Auth', authSchema);
 
-var projectSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
   name: String,
   role: String,
   shortDesc: String,
@@ -60,7 +60,7 @@ var projectSchema = new mongoose.Schema({
   type: String
 });
 
-var Project = mongoose.model('Project', projectSchema);
+const Project = mongoose.model('Project', projectSchema);
 
 app.use(bodyParser.urlencoded(
   { extended: true }
@@ -96,7 +96,7 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/projects', function(req, res) {
-  var projectParams = {
+  let projectParams = {
     name:'Default Filler',
     role:'Programmer',
     shortDesc:'Default filler project.',
@@ -106,7 +106,7 @@ app.post('/projects', function(req, res) {
     type:'default'
   };
 
-  for (var key in projectParams) {
+  for (let key in projectParams) {
     if (projectParams.hasOwnProperty(key)) {
       if (req.body.project[key]) {
         projectParams[key] = req.body.project[key];
@@ -116,7 +116,7 @@ app.post('/projects', function(req, res) {
     }
   }
 
-  var newProject = new Project(projectParams);
+  let newProject = new Project(projectParams);
   newProject.save(function(err) {
     if (err) {
       console.log(err);
@@ -154,7 +154,7 @@ app.put('/projects/:id', function(req, res, next) {
 
 app.get('/rs/items/:itemId', function(req, res) {
   http.get('http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + req.params.itemId, function(httpRes) {
-    var body = '';
+    let body = '';
 
     httpRes.on('data', function(chunk) {
       body += chunk;
@@ -168,6 +168,6 @@ app.get('/rs/items/:itemId', function(req, res) {
   });
 });
 
-var server = app.listen(80, function() {
+const server = app.listen(80, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
 });
