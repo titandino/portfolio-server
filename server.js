@@ -159,8 +159,8 @@ apiRoutes.delete('/projects', function(req, res) {
   });
 });
 
-apiRoutes.put('/projects/:id', function(req, res) {
-  Project.findByIdAndUpdate(req.params.id, req.body, function(err, project) {
+apiRoutes.put('/projects', function(req, res) {
+  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
     res.json(project);
