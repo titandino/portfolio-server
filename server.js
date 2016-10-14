@@ -91,7 +91,6 @@ apiRoutes.get('/projects/:id', function(req, res) {
 });
 
 apiRoutes.use(function(req, res, next) {
-
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -155,17 +154,15 @@ apiRoutes.post('/projects', function(req, res) {
 
 apiRoutes.delete('/projects', function(req, res) {
   Project.findById(req.body.projId).remove().exec(function() {
-    console.log('Successfully deleted: ' + req.body.projId);
     res.end('Successfully deleted.');
   });
 });
 
-apiRoutes.put('/projects', function(req, res) {
-  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
+apiRoutes.put('/projects/:id', function(req, res) {
+  Project.findByIdAndUpdate(req.params.id, req.body, function(err, project) {
     if (err)
       console.log(err);
-    console.log('Successfully edited: ' + req.body._id);
-    res.end('Successfully edited.');
+    res.json(project);
   });
 });
 
