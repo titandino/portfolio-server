@@ -155,6 +155,7 @@ apiRoutes.post('/projects', function(req, res) {
 
 apiRoutes.delete('/projects', function(req, res) {
   Project.findById(req.body.projId).remove().exec(function() {
+    console.log('Successfully deleted: ' + req.body.projId);
     res.end('Successfully deleted.');
   });
 });
@@ -163,7 +164,8 @@ apiRoutes.put('/projects', function(req, res) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
-    res.json(project);
+    console.log('Successfully edited: ' + req.body._id);
+    res.end('Successfully edited.');
   });
 });
 
