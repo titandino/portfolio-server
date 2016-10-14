@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
-  //res.setHeader('Access-Control-Allow-Origin', 'http://trentonkress.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET POST PUT');
+  //res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+  res.setHeader('Access-Control-Allow-Origin', 'http://trentonkress.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
   next();
 });
 
@@ -91,12 +91,9 @@ apiRoutes.get('/projects/:id', function(req, res) {
 });
 
 apiRoutes.use(function(req, res, next) {
-  // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
-  // decode token
   if (token) {
-    // verifies secret and checks exp
     jsonToken.verify(token, app.get('tokenKey'), function(err, decoded) {
       if (err) {
         return res.json({
@@ -104,14 +101,11 @@ apiRoutes.use(function(req, res, next) {
           message: 'Failed to authenticate token.'
         });
       } else {
-        // if everything is good, save to request for use in other routes
         req.decoded = decoded;
         next();
       }
     });
   } else {
-    // if there is no token
-    // return an error
     return res.status(403).send({
       success: false,
       message: 'No token provided.'
@@ -119,36 +113,56 @@ apiRoutes.use(function(req, res, next) {
   }
 });
 
-apiRoutes.post('/projects', function(req, res) {
-  let projectParams = {
-    name:'Default Filler',
-    role:'Programmer',
-    shortDesc:'Default filler project.',
-    date:'Sploosh',
-    desc:'<p>Hey there!</p>',
-    img:'img/default.png',
-    type:'default'
-  };
+apiRoutes.post('/projects', function(req, res) { //stupid action workaround until I combine the site into node
+  if (req.body.action == 'delete') {
+    Project.findById(req.body.projId).remove().exec(function() {
+      res.end('Successfully deleted.');
+    });
+  } else if (req.body.action == 'edit') {
+    Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
+      if (err)
+        console.log(err);
+      res.end('Successfully updated.');
+    });
+  } else {
+    let projectParams = {
+      name:'Default Filler',
+      role:'Programmer',
+      shortDesc:'Default filler project.',
+      date:'Sploosh',
+      desc:'<p>Hey there!</p>',
+      img:'img/default.png',
+      type:'default'
+    };
 
-  for (let key in projectParams) {
-    if (projectParams.hasOwnProperty(key)) {
-      if (req.body[key]) {
-        projectParams[key] = req.body[key];
-      } else {
-        res.end('Missing form value', key);
+    for (let key in projectParams) {
+      if (projectParams.hasOwnProperty(key)) {
+        if (req.body[key]) {
+          projectParams[key] = req.body[key];
+        } else {
+          res.end('Missing form value', key);
+        }
       }
     }
-  }
 
-  let newProject = new Project(projectParams);
-  newProject.save(function(err) {
-    if (err) {
+    let newProject = new Project(projectParams);
+    newProject.save(function(err) {
+      if (err) {
+        console.log(err);
+        res.end('Error adding project');
+      } else {
+        console.log('Successfully added: ' + projectParams.name);
+        res.end('Successfully added: ' + projectParams.name);
+      }
+    });
+  }
+});
+
+apiRoutes.get('/users', function(req, res) {
+  Auth.find(function(err, projects) {
+    if (err)
       console.log(err);
-      res.end('Error adding project');
-    } else {
-      console.log('Successfully added: ' + projectParams.name);
-      res.end('Successfully added: ' + projectParams.name);
-    }
+    res.json(projects);
   });
 });
 
@@ -158,11 +172,11 @@ apiRoutes.delete('/projects', function(req, res) {
   });
 });
 
-apiRoutes.put('/projects/:id', function(req, res) {
-  Project.findByIdAndUpdate(req.params.id, req.body, function(err, project) {
+apiRoutes.put('/projects', function(req, res) {
+  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
-    res.json(project);
+    res.end('Successfully updated.');
   });
 });
 
