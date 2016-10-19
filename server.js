@@ -76,8 +76,11 @@ apiRoutes.get('/projects', function(req, res) {
 
 apiRoutes.get('/projects/:id', function(req, res) {
   Project.findById(req.params.id, function(err, project) {
-    if (err)
-      console.log(err);
+    if (err) {
+      res.json({
+        message: 'No project found with that ID.'
+      });
+    }
     res.json(project);
   });
 });

@@ -1,14 +1,13 @@
 {
   "name": "portfolio-server",
-  "version": "1.0.0",
-  "description": "Server to manage various projects for my portfolio",
+  "version": "1.0.1",
+  "description": "This is the source to Trent's Code 301 portfolio website and small (and slightly unecessary) API that handles the project data via an admin page.",
   "main": "server.js",
   "dependencies": {
     "assert": "^1.4.1",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "fs": "^0.0.1-security",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.3"
   },
