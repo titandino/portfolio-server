@@ -1,0 +1,61 @@
+//main: _modules.scss
+
+@import '_normalize';
+@import '_variables';
+@import '_mixins';
+
+h1 {
+  @include triforcify(3em);
+  padding: 1%;
+  margin: 0.5%;
+}
+
+h2 {
+  @include triforcify(2em);
+}
+
+h3 {
+  @include triforcify(1.6em);
+}
+
+body {
+  background-color: $bg;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+}
+
+.main-container {
+  background-color: $primary;
+  padding: 0.5rem;
+  box-shadow: 3px 3px 3px 3px;
+  min-width: 300px;
+}
+
+nav {
+  margin: 0.5%;
+
+  ul {
+    background-color: $secondary;
+    list-style: none;
+    display: flex;
+    padding: 0;
+  }
+  li {
+    flex: 1;
+
+    a {
+      padding: 1rem;
+      font-weight: bold;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: black;
+    }
+
+    &:hover {
+      transition: all .2s ease-in;
+      background-color: darken($secondary, 5);
+    }
+  }
+}
