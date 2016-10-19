@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style/style.css">
+  <title>Trent's Admin Panel</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" charset="utf-8"></script>
+  <script script id="project-template" type="text/x-handlebars-template">
+    <article class="box-shad flex-block" data-roles="{{roles}}">
+      <div class='project-heading'>
+        <h3>{{name}}</h3>
+        <p>{{role}}</p>
+        <p>{{shortDesc}}</p>
+        <p>{{date}}</p>
+      </div>
+      <div class="hr"></div>
+      <div class="box-shad proj-body-container">
+        <div class="proj-card">
+          <div class="proj-front">
+            <img src="{{img}}" alt=""/>
+          </div>
+          <div class="proj-back">
+            <section class="project-body">
+              {{{desc}}}
+            </section>
+          </div>
+        </div>
+      </div>
+    </article>
+  </script>
+</head>
+<body>
+  <div class="main-container">
+    <header>
+      <h1 class="box-shad">Trent's Admin Panel</h1>
+    </header>
+    <nav class="box-shad">
+      <ul>
+        <li><a class="section-toggle" data-tab="add-project" href="#">Add Project</a></li>
+        <li><a class="section-toggle" data-tab="edit-project" href="#">Edit Project</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section class="admintab-section" id="login-section">
+        <section class="box-shad">
+          <h3>Login</h3>
+          <form class="form-login" action="#" method="post">
+            <label>
+              <input type="text" name="username" required placeholder="Username">
+              <input type="password" name="password" required placeholder="Password">
+            </label>
+            <button type="submit" name="submit" value="Login">Login</button>
+          </form>
+          <p class='login-result'></p>
+        </section>
+      </section>
+      <section class="admintab-section" id="add-project">
+        <section class="box-shad">
+          <h3>Add Project</h3>
+          <form class="form-add-project" action="#" method="post">
+            <label>
+              <input type="text" name="name" placeholder="Project name">
+            </label>
+            <label>
+              <input type="text" name="role" placeholder="Role">
+            </label>
+            <label>
+              <input type="text" name="shortDesc" placeholder="Short description">
+            </label>
+            <label>
+              <input type="text" name="date" placeholder="Date">
+            </label>
+            <label>
+              <input type="textarea" name="desc" placeholder="Description">
+            </label>
+            <label>
+              <input type="text" name="img" placeholder="Image link">
+            </label>
+            <label>
+              <input type="text" name="type" placeholder="Type">
+            </label>
+            <button type="submit" name="submit" value="Login">Add Project</button>
+          </form>
+          <p class='add-result'></p>
+        </section>
+        <section class='add-project-preview'>
+
+        </section>
+      </section>
+      <section class="admintab-section" id="edit-project">
+        <section class="box-shad">
+          <h3>Edit Project</h3>
+          <select class="edit-selection">
+            <option selected disabled hidden>Choose Project</option>
+          </select>
+          <form class="form-edit-project" action="#" method="post">
+            <label>
+              Project ID:
+              <input type="text" disabled name="projId">
+            </label>
+            <label>
+              <input type="text" name="name" placeholder="Project name">
+            </label>
+            <label>
+              <input type="text" name="role" placeholder="Role">
+            </label>
+            <label>
+              <input type="text" name="shortDesc" placeholder="Short description">
+            </label>
+            <label>
+              <input type="text" name="date" placeholder="Date">
+            </label>
+            <label>
+              <input type="textarea" name="desc" placeholder="Description">
+            </label>
+            <label>
+              <input type="text" name="img" placeholder="Image link">
+            </label>
+            <label>
+              <input type="text" name="type" placeholder="Type">
+            </label>
+            <button type="submit" name="submit" value="">Finalize Edits</button>
+            <button type="button" id="deleteButton" value="">Delete Project</button>
+          </form>
+          <p class='edit-result'></p>
+        </section>
+        <section class="edit-project-preview" id="projects">
+
+        </section>
+      </section>
+      </section>
+    </main>
+    <footer></footer>
+  </div>
+  <script src="js/script.js" charset="utf-8"></script>
+  <script src="js/admin.js" charset="utf-8"></script>
+</body>
+</html>

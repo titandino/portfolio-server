@@ -6,6 +6,7 @@ const http = require('http');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonToken = require('jsonwebtoken');
+const path = require('path');
 
 const config = require('./config');
 
@@ -25,16 +26,7 @@ mongoose.connect(config.database, function(err) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
-  //res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
-  res.setHeader('Access-Control-Allow-Origin', 'http://trentonkress.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT');
-  next();
-});
-
-app.get('/', function(req, res) {
-  res.end('Welcome to the empty root. There\'s nothing to see here!');
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
 const apiRoutes = express.Router();
 
@@ -91,6 +83,7 @@ apiRoutes.get('/projects/:id', function(req, res) {
 });
 
 apiRoutes.use(function(req, res, next) {
+  console.log(req.body);
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
@@ -113,49 +106,37 @@ apiRoutes.use(function(req, res, next) {
   }
 });
 
-apiRoutes.post('/projects', function(req, res) { //stupid action workaround until I combine the site into node
-  if (req.body.action == 'delete') {
-    Project.findById(req.body.projId).remove().exec(function() {
-      res.end('Successfully deleted.');
-    });
-  } else if (req.body.action == 'edit') {
-    Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
-      if (err)
-        console.log(err);
-      res.end('Successfully updated.');
-    });
-  } else {
-    let projectParams = {
-      name:'Default Filler',
-      role:'Programmer',
-      shortDesc:'Default filler project.',
-      date:'Sploosh',
-      desc:'<p>Hey there!</p>',
-      img:'img/default.png',
-      type:'default'
-    };
+apiRoutes.post('/projects', function(req, res) {
+  let projectParams = {
+    name:'Default Filler',
+    role:'Programmer',
+    shortDesc:'Default filler project.',
+    date:'Sploosh',
+    desc:'<p>Hey there!</p>',
+    img:'img/default.png',
+    type:'default'
+  };
 
-    for (let key in projectParams) {
-      if (projectParams.hasOwnProperty(key)) {
-        if (req.body[key]) {
-          projectParams[key] = req.body[key];
-        } else {
-          res.end('Missing form value', key);
-        }
+  for (let key in projectParams) {
+    if (projectParams.hasOwnProperty(key)) {
+      if (req.body[key]) {
+        projectParams[key] = req.body[key];
+      } else {
+        res.end('Missing form value', key);
       }
     }
-
-    let newProject = new Project(projectParams);
-    newProject.save(function(err) {
-      if (err) {
-        console.log(err);
-        res.end('Error adding project');
-      } else {
-        console.log('Successfully added: ' + projectParams.name);
-        res.end('Successfully added: ' + projectParams.name);
-      }
-    });
   }
+
+  let newProject = new Project(projectParams);
+  newProject.save(function(err) {
+    if (err) {
+      console.log(err);
+      res.end('Error adding project');
+    } else {
+      console.log('Successfully added: ' + projectParams.name);
+      res.end('Successfully added: ' + projectParams.name);
+    }
+  });
 });
 
 apiRoutes.get('/users', function(req, res) {
@@ -176,7 +157,7 @@ apiRoutes.put('/projects', function(req, res) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
-    res.end('Successfully updated.');
+    res.end('Successfully updated. ', project.name);
   });
 });
 
