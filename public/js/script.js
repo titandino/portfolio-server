@@ -1,7 +1,7 @@
 'use strict';
 
 (function(ctx) {
-  var numLoaded = 0;
+  var numRendered = 0;
   Project.projects = [];
 
   function Project(data) {
@@ -58,7 +58,7 @@
   };
 
   function initShowMore() {
-    $('#show-more').on('click', () => loadProjects(4));
+    $('#show-more').on('click', () => renderProjects(4));
   };
 
   Project.preloadProjects = function(callback) {
@@ -69,21 +69,19 @@
         $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
         console.log('Project loaded:', i);
       }
-    }).fail(function() {
-      console.log('Error loading projects file.');
     }).success(function() {
       if (callback)
         callback(4);
     });
   };
 
-  function loadProjects(amount) {
+  function renderProjects(amount) {
     for(let i = 0;i < amount;i++) {
-      if ((numLoaded + i) >= Project.projects.length)
+      if ((numRendered + i) >= Project.projects.length)
         continue;
-      Project.projects[numLoaded + i].render();
+      Project.projects[numRendered + i].render();
     }
-    numLoaded += amount;
+    numRendered += amount;
   };
 
   $(function() {
@@ -91,7 +89,7 @@
     initSkillsLists();
     initProjectFlips();
     initShowMore();
-    Project.preloadProjects(loadProjects);
+    Project.preloadProjects(renderProjects);
   });
 
   ctx.Project = Project;

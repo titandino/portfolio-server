@@ -1,7 +1,6 @@
 'use strict';
 
 (function(ctx) {
-
   let template = Handlebars.compile($('#project-template').html());
 
   function isLoggedIn() {
@@ -12,10 +11,12 @@
   }
 
   function addToken(dater) {
-    if (typeof dater == 'string') {
-      dater += '&token=' + localStorage.access_token;
-    } else if (typeof dater == 'object') {
-      dater.token = localStorage.access_token;
+    if (isLoggedIn()) {
+      if (typeof dater == 'string') {
+        dater += '&token=' + localStorage.access_token;
+      } else if (typeof dater == 'object') {
+        dater.token = localStorage.access_token;
+      }
     }
     return dater;
   }
@@ -36,8 +37,7 @@
     $('.form-login').on('submit', function(e) {
       $('.form-login').attr('disabled', true);
       e.preventDefault();
-      let data = $(this).serialize();
-      $.post('http://trentonkress.com/api/login', data, function(res) {
+      ajax('POST', 'http://trentonkress.com/api/login', $(this).serialize(), function(res) {
         if (res) {
           if (res.success) {
             localStorage.access_token = res.token;
@@ -50,8 +50,6 @@
         } else {
           displayLoginResult('Failed to retrieve token from API.');
         }
-      }, 'json').fail(function() {
-        displayLoginResult('Failed to connect to API.');
       });
     });
   }
@@ -65,21 +63,13 @@
     $('.form-add-project').on('submit', function(e) {
       e.preventDefault();
       $('.form-add-project').attr('disabled', true);
-
-      let data = formToJSON($(this));
-
-      $.ajax({
-        type: 'POST',
-        url: 'http://trentonkress.com/api/projects',
-        data: addToken(data),
-        success: function(msg) {
-          if (msg.includes('Successfully')) {
-            $('.form-add-project').trigger('reset');
-            refreshProjects();
-          }
-          $('.form-add-project').attr('disabled', true);
-          $('.add-result').text(msg);
+      ajax('POST', 'http://trentonkress.com/api/projects', formToJSON($(this)), function(msg) {
+        if (msg.includes('Successfully')) {
+          $('.form-add-project').trigger('reset');
+          refreshProjects();
         }
+        $('.form-add-project').attr('disabled', true);
+        $('.add-result').text(msg);
       });
     });
     $('.form-add-project').on('change', function() {
@@ -99,21 +89,15 @@
   function deleteProject() {
     let id = $('.form-edit-project input:first-child').val();
     if (id) {
-      let data = { projId:id };
       if (confirm('Are you sure you want to delete this project?')) {
-        $.ajax({
-          type: 'DELETE',
-          url: 'http://trentonkress.com/api/projects',
-          data: addToken(data),
-          success: function(msg) {
-            if (msg.includes('Successfully')) {
-              $('.form-edit-project').trigger('reset');
-              refreshProjects();
-            }
-            $('#deleteButton').attr('disabled', false);
-            $('.form-edit-project').attr('disabled', false);
-            $('.edit-result').text(msg);
+        ajax('DELETE', 'http://trentonkress.com/api/projects', addToken({ projId:id }), function(msg) {
+          if (msg.includes('Successfully')) {
+            $('.form-edit-project').trigger('reset');
+            refreshProjects();
           }
+          $('#deleteButton').attr('disabled', false);
+          $('.form-edit-project').attr('disabled', false);
+          $('.edit-result').text(msg);
         });
       }
     } else {
@@ -131,18 +115,13 @@
 
       let data = formToJSON($(this));
       data._id = $('.form-edit-project input:first-child').val();
-      $.ajax({
-        type: 'PUT',
-        url: 'http://trentonkress.com/api/projects',
-        data: addToken(data),
-        success: function(msg) {
-          if (msg.includes('Successfully')) {
-            $('.form-edit-project').trigger('reset');
-            refreshProjects();
-          }
-          $('.form-edit-project').attr('disabled', false);
-          $('.edit-result').text(msg);
+      ajax('PUT', 'http://trentonkress.com/api/projects', addToken(data), function(msg) {
+        if (msg.includes('Successfully')) {
+          $('.form-edit-project').trigger('reset');
+          refreshProjects();
         }
+        $('.form-edit-project').attr('disabled', false);
+        $('.edit-result').text(msg);
       });
     });
     $('.edit-selection').on('change', function() {
@@ -173,14 +152,7 @@
   }
 
   function ajax(type, url, data, callback) {
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-      if (request.readyState == 4 || request.readyState == 200) {
-        callback(request.responseText);
-      }
-    };
-    request.open(type, url, true);
-    request.send(data);
+    $.ajax({ type: type, url: url, data: addToken(data), success: callback });
   }
 
   function initAdminPage() {
