@@ -30,6 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const apiRoutes = express.Router();
 
+app.get('/admin', function(req, res) {
+  res.sendFile(path.join(__dirname, './public/admin.html'));
+});
+
 apiRoutes.post('/login', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.end('Username or password not given.');
