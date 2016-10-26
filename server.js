@@ -52,7 +52,7 @@ rsRoutes.get('/rs/items/:itemId', function(req, res) {
   });
 });
 
-app.use('/rs', apiRoutes);
+app.use('/rs', rsRoutes);
 
 const githubRoutes = express.Router();
 
