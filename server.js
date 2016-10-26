@@ -196,7 +196,7 @@ const githubRoutes = express.Router();
 
 githubRoutes.get('/user', function(req, res) {
   let options = {
-    hostname: 'https://api.github.com',
+    host: 'https://api.github.com',
     port: 80,
     path: '/user',
     headers: {
