@@ -189,7 +189,7 @@ rsRoutes.get('/rs/items/:itemId', function(req, res) {
   });
 });
 
-app.use('/rs', apiRoutes);
+app.use('/rs', rsRoutes);
 
 const server = app.listen(80, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
