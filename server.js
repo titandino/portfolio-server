@@ -199,7 +199,8 @@ githubRoutes.get('/user', function(req, res) {
     host: 'api.github.com',
     path: '/user',
     headers: {
-      'Authentication': 'token ' + config.githubToken
+      'Authentication': 'token ' + config.githubToken,
+      'User-Agent': 'Mozilla(5.0)'
     }
   };
   https.get(options, (httpsRes) => {
