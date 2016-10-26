@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+const https = require('https');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonToken = require('jsonwebtoken');
@@ -190,6 +191,24 @@ rsRoutes.get('/rs/items/:itemId', function(req, res) {
 });
 
 app.use('/rs', apiRoutes);
+
+const githubRoutes = express.Router();
+
+githubRoutes.get('/user', function(req, res) {
+  let options = {
+    hostname: 'https://api.github.com',
+    port: 80,
+    path: '/user',
+    headers: {
+      'Authentication': 'token ' + config.githubToken
+    }
+  };
+  https.get(options, (httpsRes) => {
+    res.json(httpsRes);
+  });
+});
+
+app.use('/github', githubRoutes);
 
 const server = app.listen(80, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
