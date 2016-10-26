@@ -203,7 +203,15 @@ githubRoutes.get('/user', function(req, res) {
     }
   };
   https.get(options, (httpsRes) => {
-    res.end(httpsRes);
+    let body = '';
+
+    httpsRes.on('data', function(chunk) {
+      body += chunk;
+    });
+
+    httpsRes.on('end', function() {
+      res.json(body);
+    });
   });
 });
 
