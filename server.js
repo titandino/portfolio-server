@@ -33,45 +33,6 @@ app.get('/admin', function(req, res) {
   res.sendFile(path.join(__dirname, './public/admin.html'));
 });
 
-const rsRoutes = express.Router();
-
-//"just for fun" mirror to test bypassing cross-origin limit BS
-rsRoutes.get('/rs/items/:itemId', function(req, res) {
-  http.get('http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + req.params.itemId, function(httpRes) {
-    let body = '';
-
-    httpRes.on('data', function(chunk) {
-      body += chunk;
-    });
-
-    httpRes.on('end', function() {
-      res.end(body);
-    });
-  }).on('error', function(e) {
-    console.log('Error getting item details', e);
-  });
-});
-
-app.use('/rs', rsRoutes);
-
-const githubRoutes = express.Router();
-
-githubRoutes.get('/user', function(req, res) {
-  let options = {
-    hostname: 'https://api.github.com',
-    port: 80,
-    path: '/user',
-    headers: {
-      'Authentication': 'token ' + config.githubToken
-    }
-  };
-  https.get(options, (httpsRes) => {
-    res.json(httpsRes);
-  });
-});
-
-app.use('/github', githubRoutes);
-
 const apiRoutes = express.Router();
 
 apiRoutes.post('/login', function(req, res) {
@@ -209,6 +170,45 @@ apiRoutes.put('/projects', function(req, res) {
 });
 
 app.use('/api', apiRoutes);
+
+const rsRoutes = express.Router();
+
+//"just for fun" mirror to test bypassing cross-origin limit BS
+rsRoutes.get('/rs/items/:itemId', function(req, res) {
+  http.get('http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + req.params.itemId, function(httpRes) {
+    let body = '';
+
+    httpRes.on('data', function(chunk) {
+      body += chunk;
+    });
+
+    httpRes.on('end', function() {
+      res.end(body);
+    });
+  }).on('error', function(e) {
+    console.log('Error getting item details', e);
+  });
+});
+
+app.use('/rs', rsRoutes);
+
+const githubRoutes = express.Router();
+
+githubRoutes.get('/user', function(req, res) {
+  let options = {
+    hostname: 'https://api.github.com',
+    port: 80,
+    path: '/user',
+    headers: {
+      'Authentication': 'token ' + config.githubToken
+    }
+  };
+  https.get(options, (httpsRes) => {
+    res.json(httpsRes);
+  });
+});
+
+app.use('/github', githubRoutes);
 
 const server = app.listen(80, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
