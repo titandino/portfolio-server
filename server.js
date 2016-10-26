@@ -90,7 +90,6 @@ apiRoutes.get('/projects/:id', function(req, res) {
 });
 
 apiRoutes.use(function(req, res, next) {
-  console.log(req.body);
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
