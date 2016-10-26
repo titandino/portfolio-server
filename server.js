@@ -197,9 +197,8 @@ const githubRoutes = express.Router();
 githubRoutes.get('/user', function(req, res) {
   let options = {
     host: 'api.github.com',
-    path: '/user',
+    path: '/user&Authentication=token ' + config.githubToken,
     headers: {
-      'Authentication': 'token ' + config.githubToken,
       'User-Agent': 'Mozilla(5.0)'
     }
   };
