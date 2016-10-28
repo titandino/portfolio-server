@@ -1,17 +1,17 @@
+'use strict';
+
 const express = require('express');
 const mongoose = require('mongoose');
 const jsonToken = require('jsonwebtoken');
 
-const config = require('./config');
+const config = require('../config');
 
-const Auth = require('./models/auth');
-const Project = require('./models/project');
+const Auth = require('../models/auth');
+const Project = require('../models/project');
 
 const router = express.Router();
 
 mongoose.Promise = global.Promise;
-
-app.set('tokenKey', config.tokenKey);
 
 mongoose.connect(config.database, function(err) {
   if (err)
@@ -37,7 +37,7 @@ router.post('/login', function(req, res) {
             throw err;
           console.log('Authentication request for ' + req.body.username, isMatch);
           if (isMatch) {
-            let token = jsonToken.sign(auth, app.get('tokenKey'), {
+            let token = jsonToken.sign(auth, config.tokenKey, {
               expiresIn: config.token_expiry_time
             });
 
