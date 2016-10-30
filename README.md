@@ -1,6 +1,8 @@
 # Trent's Portfolio Website/API Server
 This is the source to Trent's Code 301 portfolio website and small (and slightly unecessary) API that handles the project data via an admin page.
 
+The deployed portfolio can be found here: http://trentonkress.com
+
 ## Dependencies
 Here are the main dependencies that are being utilized within the project.
 
