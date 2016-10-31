@@ -6,7 +6,6 @@
 
   function Project(data) {
     if (typeof data === 'object') {
-      console.log('Parsing object fields.');
       for (let field in data) {
         this[field] = data[field];
       }
@@ -67,7 +66,6 @@
       for(let i = 0;i < data.length;i++) {
         Project.projects[i] = new Project(data[i]);
         $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
-        console.log('Project loaded:', i);
       }
     }).success(function() {
       if (callback)

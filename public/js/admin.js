@@ -42,7 +42,6 @@
           if (res.success) {
             localStorage.access_token = res.token;
             localStorage.token_expiry = res.expiresIn;
-            console.log(localStorage.access_token);
             initNavTabs();
           } else {
             displayLoginResult(res.message);

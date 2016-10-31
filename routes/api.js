@@ -22,37 +22,40 @@ mongoose.connect(config.database, function(err) {
 router.post('/login', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.end('Username or password not given.');
-  } else {
-    Auth.findOne({ username: req.body.username }, function(err, auth) {
+  }
+
+  let promise = Auth.findOne({ username: req.body.username }).exec();
+
+  promise.then(function(auth) {
+    if (!auth) {
+      res.json({
+        success: false,
+        message: 'Username or password incorrect.',
+      });
+    }
+    return auth;
+  }).then(function(auth) {
+    auth.checkPass(req.body.password, function(err, isMatch) {
       if (err)
         throw err;
-      if (!auth) {
-        res.json({
-          success: false,
-          message: 'Username or password incorrect.',
+      console.log('Authentication request for ' + req.body.username, isMatch);
+      if (isMatch) {
+        let token = jsonToken.sign(auth, config.tokenKey, {
+          expiresIn: config.token_expiry_time
         });
-      } else {
-        auth.checkPass(req.body.password, function(err, isMatch) {
-          if (err)
-            throw err;
-          console.log('Authentication request for ' + req.body.username, isMatch);
-          if (isMatch) {
-            let token = jsonToken.sign(auth, config.tokenKey, {
-              expiresIn: config.token_expiry_time
-            });
 
-            // return the information including token as JSON
-            res.json({
-              success: true,
-              message: 'Login sucessful.',
-              token: token,
-              expiresIn: Date.now() + (config.token_expiry_time * 1000)
-            });
-          }
+        // return the information including token as JSON
+        res.json({
+          success: true,
+          message: 'Login sucessful.',
+          token: token,
+          expiresIn: Date.now() + (config.token_expiry_time * 1000)
         });
       }
     });
-  }
+  }).catch(function(err) {
+    console.log(err);
+  });
 });
 
 router.get('/projects', function(req, res) {
