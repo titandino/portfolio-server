@@ -44,7 +44,6 @@ router.post('/login', function(req, res) {
           expiresIn: config.token_expiry_time
         });
 
-        // return the information including token as JSON
         res.json({
           success: true,
           message: 'Login sucessful.',
@@ -82,7 +81,7 @@ router.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
-    jsonToken.verify(token, app.get('tokenKey'), function(err, decoded) {
+    jsonToken.verify(token, config.tokenKey, function(err, decoded) {
       if (err) {
         return res.json({
           success: false,
