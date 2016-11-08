@@ -22,37 +22,39 @@ mongoose.connect(config.database, function(err) {
 router.post('/login', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.end('Username or password not given.');
-  } else {
-    Auth.findOne({ username: req.body.username }, function(err, auth) {
+  }
+
+  let promise = Auth.findOne({ username: req.body.username }).exec();
+
+  promise.then(function(auth) {
+    if (!auth) {
+      res.json({
+        success: false,
+        message: 'Username or password incorrect.',
+      });
+    }
+    return auth;
+  }).then(function(auth) {
+    auth.checkPass(req.body.password, function(err, isMatch) {
       if (err)
         throw err;
-      if (!auth) {
-        res.json({
-          success: false,
-          message: 'Username or password incorrect.',
+      console.log('Authentication request for ' + req.body.username, isMatch);
+      if (isMatch) {
+        let token = jsonToken.sign(auth, config.tokenKey, {
+          expiresIn: config.token_expiry_time
         });
-      } else {
-        auth.checkPass(req.body.password, function(err, isMatch) {
-          if (err)
-            throw err;
-          console.log('Authentication request for ' + req.body.username, isMatch);
-          if (isMatch) {
-            let token = jsonToken.sign(auth, config.tokenKey, {
-              expiresIn: config.token_expiry_time
-            });
 
-            // return the information including token as JSON
-            res.json({
-              success: true,
-              message: 'Login sucessful.',
-              token: token,
-              expiresIn: Date.now() + (config.token_expiry_time * 1000)
-            });
-          }
+        res.json({
+          success: true,
+          message: 'Login sucessful.',
+          token: token,
+          expiresIn: Date.now() + (config.token_expiry_time * 1000)
         });
       }
     });
-  }
+  }).catch(function(err) {
+    console.log(err);
+  });
 });
 
 router.get('/projects', function(req, res) {
@@ -79,7 +81,7 @@ router.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
-    jsonToken.verify(token, app.get('tokenKey'), function(err, decoded) {
+    jsonToken.verify(token, config.tokenKey, function(err, decoded) {
       if (err) {
         return res.json({
           success: false,
@@ -132,10 +134,10 @@ router.post('/projects', function(req, res) {
 });
 
 router.get('/users', function(req, res) {
-  Auth.find(function(err, projects) {
+  Auth.find(function(err, users) {
     if (err)
       console.log(err);
-    res.json(projects);
+    res.json(users);
   });
 });
 
@@ -146,7 +148,7 @@ router.delete('/projects', function(req, res) {
 });
 
 router.put('/projects', function(req, res) {
-  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
+  Project.findOneByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
     res.end('Successfully updated. ', project.name);
