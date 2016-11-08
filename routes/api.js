@@ -134,10 +134,10 @@ router.post('/projects', function(req, res) {
 });
 
 router.get('/users', function(req, res) {
-  Auth.find(function(err, projects) {
+  Auth.find(function(err, users) {
     if (err)
       console.log(err);
-    res.json(projects);
+    res.json(users);
   });
 });
 
@@ -148,7 +148,7 @@ router.delete('/projects', function(req, res) {
 });
 
 router.put('/projects', function(req, res) {
-  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
+  Project.findOneByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err)
       console.log(err);
     res.end('Successfully updated. ', project.name);

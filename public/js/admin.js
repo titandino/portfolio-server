@@ -37,7 +37,7 @@
     $('.form-login').on('submit', function(e) {
       $('.form-login').attr('disabled', true);
       e.preventDefault();
-      ajax('POST', 'http://trentonkress.com/api/login', $(this).serialize(), function(res) {
+      ajax('POST', '/api/login', $(this).serialize(), function(res) {
         if (res) {
           if (res.success) {
             localStorage.access_token = res.token;
@@ -62,7 +62,7 @@
     $('.form-add-project').on('submit', function(e) {
       e.preventDefault();
       $('.form-add-project').attr('disabled', true);
-      ajax('POST', 'http://trentonkress.com/api/projects', formToJSON($(this)), function(msg) {
+      ajax('POST', '/api/projects', formToJSON($(this)), function(msg) {
         if (msg.includes('Successfully')) {
           $('.form-add-project').trigger('reset');
           refreshProjects();
@@ -89,7 +89,7 @@
     let id = $('.form-edit-project input:first-child').val();
     if (id) {
       if (confirm('Are you sure you want to delete this project?')) {
-        ajax('DELETE', 'http://trentonkress.com/api/projects', addToken({ projId:id }), function(msg) {
+        ajax('DELETE', '/api/projects', addToken({ projId:id }), function(msg) {
           if (msg.includes('Successfully')) {
             $('.form-edit-project').trigger('reset');
             refreshProjects();
@@ -114,7 +114,7 @@
 
       let data = formToJSON($(this));
       data._id = $('.form-edit-project input:first-child').val();
-      ajax('PUT', 'http://trentonkress.com/api/projects', addToken(data), function(msg) {
+      ajax('PUT', '/api/projects', addToken(data), function(msg) {
         if (msg.includes('Successfully')) {
           $('.form-edit-project').trigger('reset');
           refreshProjects();
