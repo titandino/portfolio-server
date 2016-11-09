@@ -82,11 +82,18 @@
     numRendered += amount;
   };
 
+  function initGithubStats() {
+    $.getJSON('/github/user', function(data) {
+      $('#repo-count').text(data.public_repos);
+    });
+  }
+
   $(function() {
     initNav();
     initSkillsLists();
     initProjectFlips();
     initShowMore();
+    initGithubStats();
     Project.preloadProjects(renderProjects);
   });
 

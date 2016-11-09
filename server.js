@@ -2,8 +2,11 @@
 
 const express = require('express');
 const app = express();
+const requestProxy = require('express-request-proxy');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+const config = require('./config');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -14,6 +17,11 @@ app.get('*', function(req, res, next) {
   console.log('Connection from: ' + req.connection.remoteAddress.replace('::ffff:', '') + ' requesting ' + req.url);
   next();
 });
+
+app.get('/github/*', requestProxy({
+  url: 'https://api.github.com/*',
+  headers: { Authorization: 'token ' + config.githubToken}
+}));
 
 app.get('/admin', function(req, res) {
   res.sendFile(path.join(__dirname, './public/admin.html'));
