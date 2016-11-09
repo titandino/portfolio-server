@@ -20,7 +20,7 @@ app.get('*', function(req, res, next) {
 
 app.get('/github/*', requestProxy({
   url: 'https://api.github.com/*',
-  headers: { Authorization: 'token ' + config.GITHUB_TOKEN}
+  headers: { Authorization: 'token ' + config.githubToken}
 }));
 
 app.get('/admin', function(req, res) {
