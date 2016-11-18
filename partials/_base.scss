@@ -32,6 +32,15 @@ body {
   min-width: 300px;
 }
 
+table, th, td {
+   border-bottom: 1px solid $primary;
+}
+
+th, td {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
 nav {
   margin: 0.5%;
 
