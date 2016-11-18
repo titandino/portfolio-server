@@ -1,21 +1,25 @@
 (function(ctx) {
-  function handleSearch() {
+  function handleSearchButton() {
     $('.highscores-search').on('submit', function(e) {
       e.preventDefault();
-      $.getJSON('/rs/highscores/' + $('.highscores-search input').val(), function(data) {
-        console.log(data);
-        if (data) {
-          formatAndDisplayHighscores(data);
-        } else {
-          $('#hs-info').text('Player not found.');
-        }
-      });
+      requestHighscoreData($('.highscores-search input').val());
     });
   }
 
-  function formatAndDisplayHighscores(data) {
+  function requestHighscoreData(username) {
+    $.getJSON('/rs/highscores/' + username, function(data) {
+      console.log(data);
+      if (data) {
+        formatAndDisplayHighscores(data, username);
+      } else {
+        $('#hs-info').text('Player not found.');
+      }
+    });
+  }
+
+  function formatAndDisplayHighscores(data, username) {
     reset();
-    $('#results-div').append('<h2>' + $('.highscores-search input').val() + '</h2>');
+    $('#player-name').text('Showing stats for "' + username + '"');
     $('#results-div').append('<table></table>');
     $('#results-div table').append('<tr><th>Skill</th><th>Rank</th><th>Level</th><th>Experience</th></tr>');
     for (skill in data) {
@@ -34,6 +38,7 @@
   }
 
   $(function() {
-    handleSearch();
+    handleSearchButton();
+    requestHighscoreData('yehp');
   });
 })(window);
