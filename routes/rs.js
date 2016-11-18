@@ -30,7 +30,8 @@ router.get('/highscores/:username', function(req, res) {
     });
 
     httpRes.on('end', function() {
-      res.end(body);
+      let statBlocks = body.split('\n');
+      res.json(statBlocks);
     });
   }).on('error', function(e) {
     console.log('Error getting item details', e);
