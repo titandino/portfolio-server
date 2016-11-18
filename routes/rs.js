@@ -5,8 +5,7 @@ const http = require('http');
 
 const router = express.Router();
 
-const SKILL_NAMES = ['Overall', 'Attack', 'Defence', 'Strength', 'Constitution', 'Ranged', 'Prayer', 'Magic', 'Cooking', 'Woodcutting', 'Fletching', 'Fishing', 'Firemaking', 'Crafting', 'Smithing', 'Mining', 'Herblore', 'Agility',
-  'Thieving', 'Slayer', 'Farming', 'Runecrafting', 'Hunter', 'Construction', 'Summoning', 'Dungeoneering', 'Divination', 'Invention']
+const SKILL_NAMES = ['Overall', 'Attack', 'Defence', 'Strength', 'Constitution', 'Ranged', 'Prayer', 'Magic', 'Cooking', 'Woodcutting', 'Fletching', 'Fishing', 'Firemaking', 'Crafting', 'Smithing', 'Mining', 'Herblore', 'Agility', 'Thieving', 'Slayer', 'Farming', 'Runecrafting', 'Hunter', 'Construction', 'Summoning', 'Dungeoneering', 'Divination', 'Invention'];
 
 router.get('/items/:itemId', function(req, res) {
   http.get('http://services.runescape.com/m=itemdb_rs/api/catalogue/detail.json?item=' + req.params.itemId, function(httpRes) {
@@ -55,6 +54,7 @@ router.get('/highscores/:username', function(req, res) {
           let statRanks = statBlocks[i].split(',');
           stats[i] = {
             skillName: SKILL_NAMES[i],
+            skillIcon: '/img/rs/' + SKILL_NAMES[i].toLowerCase() + '.png',
             rank: statRanks[0],
             level: statRanks[1],
             xp: statRanks[2]
