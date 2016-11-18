@@ -17,14 +17,18 @@ router.get('/items/:itemId', function(req, res) {
     });
 
     httpRes.on('end', function() {
-      let allItem = JSON.parse(body);
-      let item = {
-        name: allItem.item.name,
-        description: allItem.item.description,
-        image: allItem.item.icon_large,
-        price: allItem.item.current.price
-      };
-      res.json(item);
+      if (body.includes('DOCTYPE')) {
+        res.end('No item information found.');
+      } else {
+        let allItem = JSON.parse(body);
+        let item = {
+          name: allItem.item.name,
+          description: allItem.item.description,
+          image: allItem.item.icon_large,
+          price: allItem.item.current.price
+        };
+        res.json(item);
+      }
     });
   }).on('error', function(e) {
     console.log('Error getting item details', e);
