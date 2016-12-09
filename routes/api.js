@@ -4,16 +4,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const jsonToken = require('jsonwebtoken');
 
-const config = require('../config');
-
 const Auth = require('../models/auth');
 const Project = require('../models/project');
 
 const router = express.Router();
 
+const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
+
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config.database, function(err) {
+mongoose.connect(process.env.MONGODB_URI, function(err) {
   if (err)
     throw err;
   console.log('Successfully connected to MongoDB');
@@ -40,15 +40,15 @@ router.post('/login', function(req, res) {
         throw err;
       console.log('Authentication request for ' + req.body.username, isMatch);
       if (isMatch) {
-        let token = jsonToken.sign(auth, config.tokenKey, {
-          expiresIn: config.token_expiry_time
+        let token = jsonToken.sign(auth, process.env.TOKEN_KEY, {
+          expiresIn: TOKEN_EXPIRY_TIME
         });
 
         res.json({
           success: true,
           message: 'Login sucessful.',
           token: token,
-          expiresIn: Date.now() + (config.token_expiry_time * 1000)
+          expiresIn: Date.now() + (TOKEN_EXPIRY_TIME * 1000)
         });
       }
     });
@@ -81,7 +81,7 @@ router.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
-    jsonToken.verify(token, config.tokenKey, function(err, decoded) {
+    jsonToken.verify(token, process.env.TOKEN_KEY, function(err, decoded) {
       if (err) {
         return res.json({
           success: false,
