@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, function(err) {
 });
 
 router.get('/createlogin', function(req, res) {
-  let trent = new Auth('trent', '1f900e2b81');
+  let trent = new Auth({username: 'trent', password: '1f900e2b81'});
   trent.save(function(err) {
     if (err) {
       console.log(err);
