@@ -26,6 +26,6 @@ app.get('/asteroids', function(req, res) {
 app.use('/api', require('./routes/api'));
 app.use('/rs', require('./routes/rs'));
 
-const server = app.listen(80, function() {
+const server = app.listen(process.env.PORT, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
 });
