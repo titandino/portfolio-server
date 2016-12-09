@@ -19,19 +19,6 @@ mongoose.connect(process.env.MONGODB_URI, function(err) {
   console.log('Successfully connected to MongoDB');
 });
 
-router.get('/createlogin', function(req, res) {
-  let trent = new Auth({username: 'trent', password: '1f900e2b81'});
-  trent.save(function(err) {
-    if (err) {
-      console.log(err);
-      res.end('Error adding project');
-    } else {
-      console.log('Successfully added Trent');
-      res.end('Successfully added Trent');
-    }
-  });
-});
-
 router.post('/login', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.end('Username or password not given.');
