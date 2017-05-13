@@ -9,11 +9,14 @@ const Project = require('../models/project');
 
 const router = express.Router();
 
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio-server';
+const TOKEN_KEY = process.env.TOKEN_KEY || 'testtestmeme';
+
 const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGODB_URI, function(err) {
+mongoose.connect(MONGODB_URI, function(err) {
   if (err)
     throw err;
   console.log('Successfully connected to MongoDB');
@@ -40,7 +43,7 @@ router.post('/login', function(req, res) {
         throw err;
       console.log('Authentication request for ' + req.body.username, isMatch);
       if (isMatch) {
-        let token = jsonToken.sign(auth, process.env.TOKEN_KEY, {
+        let token = jsonToken.sign(auth, TOKEN_KEY, {
           expiresIn: TOKEN_EXPIRY_TIME
         });
 
@@ -81,7 +84,7 @@ router.use(function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
-    jsonToken.verify(token, process.env.TOKEN_KEY, function(err, decoded) {
+    jsonToken.verify(token, TOKEN_KEY, function(err, decoded) {
       if (err) {
         return res.json({
           success: false,

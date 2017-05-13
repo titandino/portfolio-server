@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const PORT = process.env.PORT || 5555;
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -26,6 +28,6 @@ app.get('/asteroids', function(req, res) {
 app.use('/api', require('./routes/api'));
 app.use('/rs', require('./routes/rs'));
 
-const server = app.listen(process.env.PORT, function() {
+const server = app.listen(PORT, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);
 });
