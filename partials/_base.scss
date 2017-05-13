@@ -18,6 +18,10 @@ h3 {
   @include triforcify(1.6em);
 }
 
+h4 {
+  @include triforcify(1em);
+}
+
 body {
   background-color: $bg;
   width: 100%;

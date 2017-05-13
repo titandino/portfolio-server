@@ -1,7 +1,5 @@
 //main: _modules.scss
 
-@import url('https://fonts.googleapis.com/css?family=Candal');
-
 @mixin resize-text($h1, $h2, $h3, $body) {
   h1 {
     font-size: $h1;
