@@ -79,29 +79,7 @@ router.get('/projects/:id', function(req, res) {
   });
 });
 
-router.use(function(req, res, next) {
-  console.log(req.body);
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (token) {
-    jsonToken.verify(token, TOKEN_KEY, function(err, decoded) {
-      if (err) {
-        return res.json({
-          success: false,
-          message: 'Failed to authenticate token.'
-        });
-      } else {
-        req.decoded = decoded;
-        next();
-      }
-    });
-  } else {
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
-  }
-});
+router.use(require('../lib/auth-middleware'));
 
 router.post('/projects', function(req, res) {
   let projectParams = {
