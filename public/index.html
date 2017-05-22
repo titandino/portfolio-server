@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" charset="utf-8"></script>
   <script script id="project-template" type="text/x-handlebars-template">
-    <article class="box-shad flex-block" data-roles="{{roles}}">
+    <article class="box-shad col box-50" data-roles="{{roles}}">
       <div class='project-heading'>
         <h3>{{name}}</h3>
         <p>{{role}}</p>
@@ -16,12 +16,13 @@
         <p>{{date}}</p>
       </div>
       <div class="hr"></div>
-      <div class="box-shad proj-body-container">
-        <div class="proj-card">
-          <div class="proj-front">
+      <div class="box-shad card-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="card">
+          <img src="{{img}}" alt="" style="opacity: 0;"/>
+          <div class="front">
             <img src="{{img}}" alt=""/>
           </div>
-          <div class="proj-back">
+          <div class="back">
             <section class="project-body">
               {{{desc}}}
             </section>
@@ -45,18 +46,18 @@
       </ul>
     </nav>
     <main>
-      <section class="tab-section" id="summary">
-        <section class="box-shad flex-block">
+      <section class="tab-section group" id="summary">
+        <section class="box-shad box-100">
           <h2>About Me</h2>
           <div class="hr"></div>
-          <p>I am a software developer who has been both passionate and involved in programming for almost 11 years. Skilled at efficient server programming and code organization. Focused on utilizing my coding experience to create quality implementations of content designs into games.</p>
+          <p>I am a software developer who has been both passionate and involved in programming for almost many years. Skilled at efficient server programming and code organization. Focused on utilizing my coding experience to create quality implementations of content designs into games.</p>
         </section>
-        <section class="box-shad flex-block">
+        <section class="box-shad col box-50">
           <h2>Skills</h2>
           <div class="hr"></div>
-          <section class="skills-list">
+          <section class="skills-list col box-50-nofull">
             <ul><a href="#">Languages</a>
-              <li><div class="hr"></div></li>
+              <div class="hr"></div>
               <li>Java</li>
               <li>C++</li>
               <li>C</li>
@@ -65,9 +66,9 @@
               <li>JavaScript</li>
             </ul>
           </section>
-          <section class="skills-list">
+          <section class="skills-list col box-50-nofull">
             <ul><a href="#">Programming Concepts</a>
-              <li><div class="hr"></div></li>
+              <div class="hr"></div>
               <li>Object Oriented Design</li>
               <li>Debugging</li>
               <li>Optimization</li>
@@ -79,9 +80,9 @@
               <li>Mobile First Design</li>
             </ul>
           </section>
-          <section class="skills-list">
+          <section class="skills-list col box-50-nofull">
             <ul><a href="#">APIs</a>
-              <li><div class="hr"></div></li>
+              <div class="hr"></div>
               <li>Java Platform SE (6/7/8)</li>
               <li>C/C++ STL</li>
               <li>FMOD</li>
@@ -93,9 +94,9 @@
               <li>Sass</li>
             </ul>
           </section>
-          <section class="skills-list">
+          <section class="skills-list col box-50-nofull">
             <ul><a href="#">Tools</a>
-              <li><div class="hr"></div></li>
+              <div class="hr"></div>
               <li>Eclipse</li>
               <li>Visual Studio</li>
               <li>Atom</li>
@@ -106,7 +107,7 @@
             </ul>
           </section>
         </section>
-        <section class="box-shad flex-block">
+        <section class="box-shad col box-50">
           <h2>Education</h2>
           <div class="hr"></div>
           <h4>Certificate - Advanced Software Development in Full-Stack JavaScript</h4>
@@ -119,7 +120,7 @@
           <p>Lake Washington Institute of Technology, ​Kirkland, WA | September 2014 - January 2016</p>
         </section>
       </section>
-      <section class="tab-section" id="projects">
+      <section class="tab-section group" id="projects">
         <section class="project-display">
         </section>
         <button id="show-more">Show more</button>

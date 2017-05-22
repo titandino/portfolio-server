@@ -23,17 +23,10 @@ h4 {
 }
 
 body {
-  background-color: $bg;
+  background-color: $primary;
   width: 100%;
   height: 100%;
   font-size: 0.8em;
-}
-
-.main-container {
-  background-color: $primary;
-  padding: 0.5rem;
-  box-shadow: 3px 3px 3px 3px;
-  min-width: 300px;
 }
 
 table, th, td {

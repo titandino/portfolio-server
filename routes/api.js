@@ -9,7 +9,7 @@ const Project = require('../models/project');
 
 const router = express.Router();
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio-server';
+const MONGODB_URI = 'mongodb://heroku_ml0d6bwx:88gtkenrf8mk83sgejlp8t18u3@ds127998.mlab.com:27998/heroku_ml0d6bwx' || 'mongodb://localhost:27017/portfolio-server';
 const TOKEN_KEY = process.env.TOKEN_KEY || 'testtestmeme';
 
 const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
