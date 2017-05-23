@@ -19,9 +19,9 @@
 }
 
 @mixin triforcify($size) {
-  font-family: "Candal";
+  font-family: $header_font;
   font-weight: normal;
   font-size: $size;
-  color: $font;
+  color: $font_color;
   margin: 0;
 }
