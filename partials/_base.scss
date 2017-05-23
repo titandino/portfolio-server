@@ -6,7 +6,6 @@
 
 h1 {
   @include triforcify(3em);
-  padding-left: 1%;
 }
 
 h2 {
@@ -45,6 +44,7 @@ nav {
     list-style: none;
     display: flex;
     padding: 0;
+    border-radius: 5px;
   }
   li {
     flex: 1;

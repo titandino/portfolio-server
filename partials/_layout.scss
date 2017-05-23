@@ -31,13 +31,25 @@
 }
 
 header {
+  display: inline-block;
+  overflow: hidden;
   margin: 0.5%;
   padding: 1%;
-}
 
-header h4 {
-  padding-left: 2%;
-  margin-left: 0.5%;
+  h1 {
+    padding-left: 1%;
+  }
+
+  h4 {
+    padding-left: 2%;
+    margin-left: 0.5%;
+  }
+
+  img {
+    height: 7em;
+    width: auto;
+    float: left;
+  }
 }
 
 .col {
@@ -141,6 +153,7 @@ header h4 {
 
 .box-shad {
   background-color: $tertiary_color;
+  border-radius: 5px;
 }
 
 #summary, .project-display {
