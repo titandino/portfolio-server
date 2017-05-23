@@ -6,8 +6,7 @@
 
 h1 {
   @include triforcify(3em);
-  padding: 1%;
-  margin: 0.5%;
+  padding-left: 1%;
 }
 
 h2 {
@@ -42,7 +41,7 @@ nav {
   margin: 0.5%;
 
   ul {
-    background-color: $secondary_color;
+    background-color: $tertiary_color;
     list-style: none;
     display: flex;
     padding: 0;
@@ -61,7 +60,7 @@ nav {
 
     &:hover {
       transition: all .2s ease-in;
-      background-color: darken($secondary_color, 5);
+      background-color: darken($tertiary_color, 10);
     }
   }
 }

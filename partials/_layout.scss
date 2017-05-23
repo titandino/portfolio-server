@@ -17,6 +17,29 @@
   clear: both;
 }
 
+#show-more {
+  font: $header_font;
+  font-weight: bold;
+  background-color: $tertiary_color;
+  padding: 1%;
+  margin: 0.5%;
+  border: none;
+  &:hover {
+    transition: all .2s ease-in;
+    background-color: darken($tertiary_color, 10);
+  }
+}
+
+header {
+  margin: 0.5%;
+  padding: 1%;
+}
+
+header h4 {
+  padding-left: 2%;
+  margin-left: 0.5%;
+}
+
 .col {
 	display: block;
 	float:left;
@@ -53,17 +76,6 @@
 }
 
 .box-50 {
-  padding: 1%;
-  margin: 0.5%;
-  width: 97%;
-
-  img {
-    width: 100%;
-    height: auto;
-  }
-}
-
-.flex-block {
   padding: 1%;
   margin: 0.5%;
   width: 97%;
@@ -128,8 +140,7 @@
 }
 
 .box-shad {
-  background-color: $secondary_color;
-  box-shadow: 1px 1px 1px 1px;
+  background-color: $tertiary_color;
 }
 
 #summary, .project-display {
