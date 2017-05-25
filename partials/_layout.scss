@@ -11,6 +11,10 @@
     color: $font_color;
     font-weight: bold;
   }
+
+  li {
+    color: $font_color;
+  }
 }
 
 .tab-section {
@@ -24,6 +28,7 @@
   padding: 1%;
   margin: 0.5%;
   border: none;
+  color: $font_color;
   &:hover {
     transition: all .2s ease-in;
     background-color: darken($tertiary_color, 10);
@@ -107,6 +112,7 @@ header {
 .project-heading {
   p {
     margin: 0;
+    color: $font_color;
 
     &:first-of-type {
       font-weight: bold;
@@ -154,6 +160,10 @@ header {
 .box-shad {
   background-color: $tertiary_color;
   border-radius: 5px;
+
+  p {
+    color: $font_color;
+  }
 }
 
 #summary, .project-display {
