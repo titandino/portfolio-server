@@ -38,8 +38,10 @@
 header {
   display: inline-block;
   overflow: hidden;
-  margin: 0.5%;
   padding: 1%;
+
+  background-image: url('/img/headerbg.png');
+  background-size: cover;
 
   h1 {
     padding-left: 1%;
