@@ -37,6 +37,21 @@
   transform: rotateY(180deg);
 }
 
+.project-heading {
+  p {
+    margin: 0;
+    color: $font_color;
+
+    &:first-of-type {
+      font-weight: bold;
+    }
+
+    &:last-of-type {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 .project-body {
   font-size: 1em;
   text-align: center;
