@@ -64,6 +64,11 @@ router.get('/projects', function(req, res) {
   Project.find(function(err, projects) {
     if (err)
       console.log(err);
+    projects.sort((a, b) => {
+      a = a.date.split(' ');
+      b = b.date.split(' ');
+      return new Date(a[1], a[0], 1) - new Date(b[1], b[0], 1);
+    });
     res.json(projects);
   });
 });
