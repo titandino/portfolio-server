@@ -62,7 +62,7 @@
     $('.form-add-project').on('submit', function(e) {
       e.preventDefault();
       $('.form-add-project').attr('disabled', true);
-      ajax('POST', '/api/projects', formToJSON($(this)), function(msg) {
+      ajax('POST', '/api/projects', addToken(formToJSON($(this))), function(msg) {
         if (msg.includes('Successfully')) {
           $('.form-add-project').trigger('reset');
           refreshProjects();
