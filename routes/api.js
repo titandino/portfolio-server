@@ -67,7 +67,7 @@ router.get('/projects', function(req, res) {
     projects.sort((a, b) => {
       a = a.date.split(' ');
       b = b.date.split(' ');
-      return new Date(Date.parse(a[0] + ' 1, ' + a[1])) - new Date(Date.parse(b[0] + ' 1, ' + b[1]));
+      return new Date(Date.parse(b[0] + ' 1, ' + b[1])) - new Date(Date.parse(a[0] + ' 1, ' + a[1]));
     });
     res.json(projects);
   });
