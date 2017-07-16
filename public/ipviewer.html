@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IP Viewer</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8"></script>
+    <style>
+      #map {
+        height: 75%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <textarea id="ips" rows="4" cols="50"></textarea>
+    <button type="button" onclick="populate()">Populate Map</button>
+    <script src="./js/ipviewer.js" charset="utf-8"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ-gittP5ejvIQ4X4Yzw737zqhwVurKpU&callback=initMap" charset="utf-8"></script>
+  </body>
+</html>
