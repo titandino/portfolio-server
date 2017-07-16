@@ -9,13 +9,24 @@
       #map {
         height: 75%;
       }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
     </style>
   </head>
   <body>
-    <div id="map"></div>
-    <textarea id="ips" rows="4" cols="50"></textarea>
-    <button type="button" onclick="populate()">Populate Map</button>
-    <script src="./js/ipviewer.js" charset="utf-8"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ-gittP5ejvIQ4X4Yzw737zqhwVurKpU&callback=initMap" charset="utf-8"></script>
+    <div class="main-container">
+      <main>
+        <section class="tab-section group" id="summary">
+          <div id="map"></div>
+          <textarea id="ips" rows="4" cols="50" required placeholder="Paste IPs Here"></textarea>
+          <button class="button" type="button" value="Populate" onclick="populate()">Populate Map</button>
+          <script src="./js/ipviewer.js" charset="utf-8"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ-gittP5ejvIQ4X4Yzw737zqhwVurKpU&callback=initMap" charset="utf-8"></script>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
