@@ -17,6 +17,10 @@
   clear: both;
 }
 
+#map {
+  height: 30em;
+}
+
 select {
   font-weight: bold;
   background-color: $tertiary_color;
@@ -117,7 +121,7 @@ header {
   margin: 0.5rem 0;
 }
 
-input {
+input, textarea {
   display: block;
   margin-bottom: 2%;
   width: 100%;
