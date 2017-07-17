@@ -20,7 +20,7 @@ function populate() {
   ips.forEach(function(ip) {
     $.getJSON('https://freegeoip.net/json/' + ip, function(data) {
       let info = new google.maps.InfoWindow({
-        content: '<div><p>' + data.city + '</p><p>' + ip + '</p></div>'
+        content: '<div class="map-info-box"><p>' + data.city + '</p><p>' + ip + '</p></div>'
       });
       let marker = new google.maps.Marker({
         position: { lat: data.latitude, lng: data.longitude },
