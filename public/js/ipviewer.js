@@ -10,7 +10,7 @@ function initMap() {
 }
 
 function populate() {
-  let ips = document.getElementById('ips').value.split('\n');
+  let ips = document.getElementById('ips').value.split(/[\r\n]+/);
 
   markers.forEach(function(marker) {
     marker.setMap(null);
