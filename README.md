@@ -68,6 +68,10 @@ The server will respond with a single project object. If the project does not ex
 ### Modifying Project Data
 Modifying project data requires a valid token by logging in and can be done by sending the following requests:
 
+#### Authorization token
+
+The auth token can be added to the request in 3 different ways. You can add it on the body or querystring as a property "token", or you can set the 'x-access-token' header to contain the token. This must be one in one way or another to modify any projects in the database.
+
 #### Deletion
 
 To delete a project, send a DELETE request to the <code>http://trentonkress.com/api/project/PROJECT_ID</code> endpoint.
