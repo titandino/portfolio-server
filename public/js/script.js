@@ -32,6 +32,8 @@
   function checkShowMoreHide() {
     if (numRendered >= Project.projects.length)
       $('#show-more').hide();
+    else
+      $('#show-more').show();
   }
 
   function initShowMore() {
