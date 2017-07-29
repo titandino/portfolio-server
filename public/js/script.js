@@ -62,16 +62,9 @@
     checkShowMoreHide();
   };
 
-  function initGithubStats() {
-    $.getJSON('/github/user', function(data) {
-      $('#repo-count').text(data.public_repos);
-    });
-  }
-
   $(function() {
     initNav();
     initShowMore();
-    initGithubStats();
     Project.preloadProjects(renderProjects);
   });
 
