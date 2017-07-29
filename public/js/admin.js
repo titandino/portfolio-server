@@ -63,7 +63,9 @@
       e.preventDefault();
       $('.form-add-project').attr('disabled', true);
       ajax('POST', '/api/projects', addToken(formToJSON($(this))), function(msg) {
-        if (msg.includes('Successfully')) {
+        console.log('POST');
+        console.log(msg);
+        if (msg) {
           $('.form-add-project').trigger('reset');
           refreshProjects();
         }
@@ -90,6 +92,8 @@
     if (id) {
       if (confirm('Are you sure you want to delete this project?')) {
         ajax('DELETE', '/api/projects', addToken({ projId:id }), function(msg) {
+          console.log('DELETE');
+          console.log(msg);
           if (msg.includes('Successfully')) {
             $('.form-edit-project').trigger('reset');
             refreshProjects();
@@ -115,8 +119,9 @@
       let data = formToJSON($(this));
       data._id = $('.form-edit-project input:first-child').val();
       ajax('PUT', '/api/projects', addToken(data), function(msg) {
+        console.log('PUT');
         console.log(msg);
-        if (msg.includes('Successfully')) {
+        if (msg._id == data._id) {
           $('.form-edit-project').trigger('reset');
           refreshProjects();
         }
