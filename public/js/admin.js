@@ -11,7 +11,7 @@
   }
 
   let refreshOptions = function() {
-    $('.edit-selection').first().siblings().remove();
+    $('.edit-selection').children().first().siblings().remove();
     for (let i = 0;i < Project.projects.length;i++) {
       $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
     }
@@ -58,7 +58,7 @@
           refreshProjects();
         }
         $('.form-add-project').attr('disabled', true);
-        $('.add-result').text(msg);
+        $('.add-result').text('Successfully added project.');
       });
     });
     $('.form-add-project').on('change', function() {
@@ -85,10 +85,12 @@
           if (msg.includes('Successfully')) {
             $('.form-edit-project').trigger('reset');
             refreshProjects();
+            $('.edit-result').text('Successfully deleted project.');
+          } else {
+            $('.edit-result').text('Error deleting project.');
           }
           $('#deleteButton').attr('disabled', false);
           $('.form-edit-project').attr('disabled', false);
-          $('.edit-result').text(msg);
         });
       }
     } else {
@@ -112,9 +114,12 @@
         if (msg._id == data._id) {
           $('.form-edit-project').trigger('reset');
           refreshProjects();
+          $('.edit-result').text('Successfully edited project.');
+        } else {
+          $('.edit-result').text('Error editing project.');
         }
         $('.form-edit-project').attr('disabled', false);
-        $('.edit-result').text(msg);
+
       });
     });
     $('.edit-selection').on('change', function() {
