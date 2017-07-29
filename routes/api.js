@@ -97,15 +97,15 @@ router.get('/users', function(req, res, next) {
   });
 });
 
-router.delete('/projects', function(req, res, next) {
-  Project.findByIdAndRemove(req.body.projId, function(err) {
+router.delete('/projects/:id', function(req, res, next) {
+  Project.findByIdAndRemove(req.params.id, function(err) {
     if (err) return next(err);
     res.end('Successfully deleted.');
   });
 });
 
-router.put('/projects', function(req, res, next) {
-  Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
+router.put('/projects/:id', function(req, res, next) {
+  Project.findByIdAndUpdate(req.params.id, req.body, function(err, project) {
     if (err || !project) return next(err);
     res.json(project);
   });

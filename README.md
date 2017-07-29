@@ -59,10 +59,10 @@ For details on a single project, send a GET request with the project id in the p
 
 <code>GET http://trentonkress.com/api/projects/PROJECT_ID</code>
 
-The server will respond with a single project object. If the project does not exist in the database, the server will respond with this json object and error message:
+The server will respond with a single project object. If the project does not exist in the database, the server will respond with details about the error:
 
 ``` javascript
-{ message: 'No project found with that ID.' }
+{"msg":"Cast to ObjectId failed for value \"PROJECT_ID\" at path \"_id\" for model \"Project\""}
 ```
 
 ### Modifying Project Data
@@ -70,25 +70,33 @@ Modifying project data requires a valid token by logging in and can be done by s
 
 #### Deletion
 
-To delete a project, send a DELETE request to the <code>http://trentonkress.com/api/project</code> endpoint with a json object formatted as follows:
-
-``` javascript
-{ projId: PROJECT_ID, token: YOUR_VALID_TOKEN }
-```
+To delete a project, send a DELETE request to the <code>http://trentonkress.com/api/project/PROJECT_ID</code> endpoint.
+The server will respond with either successful or unsuccessful deletion.
 
 #### Adding and Modifying
-Modifying and adding are done the same way but with PUT and POST requests to the <code>http://trentonkress.com/api/project</code> endpoint. The requests must contain the following JSON object format as data:
+Modifying and adding are done the same way but PUT and POST requests to the <code>http://trentonkress.com/api/project</code> or <code>http://trentonkress.com/api/project/PROJECT_ID endpoints.
+
+##### PUT
+
+```
+PUT http://trentonkress.com/api/project/PROJECT_ID
+```
+##### POST
+
+```
+POST http://trentonkress.com/api/project
+```
+
+with the body containing for both POST/PUT:
 
 ``` javascript
 {
-  _id: PROJECT_ID //(if editing through PUT. Not used on POST)
   name: PROJECT_NAME,
   role: PROJECT_ROLE,
   shortDesc: SHORT_DESCRIPTION,
   date: DATE,
   desc: LONG_DESCRIPTION, //Can contain HTML to render
   img: IMAGE_LINK,
-  type: PROJECT_TYPE,
-  token: VALID TOKEN
+  type: PROJECT_TYPE
 }
 ```
