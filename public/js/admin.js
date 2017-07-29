@@ -1,6 +1,6 @@
 'use strict';
 
-(function(ctx) {
+(function() {
   let template = Handlebars.compile($('#project-template').html());
 
   function isLoggedIn() {
@@ -10,23 +10,12 @@
     return false;
   }
 
-  function addToken(dater) {
-    if (isLoggedIn()) {
-      if (typeof dater == 'string') {
-        dater += '&token=' + localStorage.access_token;
-      } else if (typeof dater == 'object') {
-        dater.token = localStorage.access_token;
-      }
-    }
-    return dater;
-  }
-
-  let refreshOptions = function() {
-    $('.edit-selection').first().siblings().remove();
-    for (let i = 0;i < Project.projects.length;i++) {
-      $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
-    }
-  };
+  // let refreshOptions = function() {
+  //   $('.edit-selection').first().siblings().remove();
+  //   for (let i = 0;i < Project.projects.length;i++) {
+  //     $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
+  //   }
+  // };
 
   function refreshProjects() {
     //Project.preloadProjects(refreshOptions);
@@ -62,7 +51,7 @@
     $('.form-add-project').on('submit', function(e) {
       e.preventDefault();
       $('.form-add-project').attr('disabled', true);
-      ajax('POST', '/api/projects', addToken(formToJSON($(this))), function(msg) {
+      ajax('POST', '/api/projects', formToJSON($(this)), function(msg) {
         console.log('POST');
         console.log(msg);
         if (msg) {
@@ -91,7 +80,7 @@
     let id = $('.form-edit-project input:first-child').val();
     if (id) {
       if (confirm('Are you sure you want to delete this project?')) {
-        ajax('DELETE', '/api/projects', addToken({ projId:id }), function(msg) {
+        ajax('DELETE', '/api/projects/' + id, { }, function(msg) {
           console.log('DELETE');
           console.log(msg);
           if (msg.includes('Successfully')) {
@@ -118,7 +107,7 @@
 
       let data = formToJSON($(this));
       data._id = $('.form-edit-project input:first-child').val();
-      ajax('PUT', '/api/projects', addToken(data), function(msg) {
+      ajax('PUT', '/api/projects/' + data._id, data, function(msg) {
         console.log('PUT');
         console.log(msg);
         if (msg._id == data._id) {
@@ -157,7 +146,7 @@
   }
 
   function ajax(type, url, data, callback) {
-    $.ajax({ type: type, url: url, data: addToken(data), success: callback });
+    $.ajax({ type: type, url: url, headers: { 'x-access-token': localStorage.access_token }, data: data, success: callback });
   }
 
   function initAdminPage() {
@@ -177,4 +166,4 @@
   $(function() {
     checkLogin();
   });
-})(window);
+})();
