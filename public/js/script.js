@@ -29,8 +29,14 @@
     $('.section-toggle:first').trigger('click');
   };
 
+  function checkShowMoreHide() {
+    if (numRendered >= Project.projects.length)
+      $('#show-more').hide();
+  }
+
   function initShowMore() {
     $('#show-more').on('click', () => renderProjects(4));
+    checkShowMoreHide();
   };
 
   Project.preloadProjects = function(callback) {
@@ -53,6 +59,7 @@
       Project.projects[numRendered + i].render();
     }
     numRendered += amount;
+    checkShowMoreHide();
   };
 
   function initGithubStats() {
