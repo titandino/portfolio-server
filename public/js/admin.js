@@ -115,6 +115,7 @@
       let data = formToJSON($(this));
       data._id = $('.form-edit-project input:first-child').val();
       ajax('PUT', '/api/projects', addToken(data), function(msg) {
+        console.log(msg);
         if (msg.includes('Successfully')) {
           $('.form-edit-project').trigger('reset');
           refreshProjects();
