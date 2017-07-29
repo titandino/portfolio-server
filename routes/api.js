@@ -56,7 +56,9 @@ router.post('/login', function(req, res) {
         });
       }
     });
-  }).catch(next);
+  }).catch(function(err) {
+    if (err) console.log(err);
+  });
 });
 
 router.get('/projects', function(req, res) {
