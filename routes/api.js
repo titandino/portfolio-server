@@ -24,7 +24,7 @@ mongoose.connect(MONGODB_URI, function(err) {
   console.log('Successfully connected to MongoDB');
 });
 
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     res.end('Username or password not given.');
   }
@@ -61,7 +61,7 @@ router.post('/login', function(req, res) {
   });
 });
 
-router.get('/projects', function(req, res) {
+router.get('/projects', function(req, res, next) {
   Project.find(function(err, projects) {
     if (err) return next(err);
     projects.sort((a, b) => {
@@ -73,7 +73,7 @@ router.get('/projects', function(req, res) {
   });
 });
 
-router.get('/projects/:id', function(req, res) {
+router.get('/projects/:id', function(req, res, next) {
   Project.findById(req.params.id, function(err, project) {
     if (err) return next(err);
     res.json(project);
@@ -82,7 +82,7 @@ router.get('/projects/:id', function(req, res) {
 
 router.use(require('../lib/auth-middleware'));
 
-router.post('/projects', function(req, res) {
+router.post('/projects', function(req, res, next) {
   let newProject = new Project(req.body);
   newProject.save(function(err) {
     if (err) return next(err);
@@ -90,20 +90,21 @@ router.post('/projects', function(req, res) {
   });
 });
 
-router.get('/users', function(req, res) {
+router.get('/users', function(req, res, next) {
   Auth.find(function(err, users) {
     if (err) return next(err);
     res.json(users);
   });
 });
 
-router.delete('/projects', function(req, res) {
-  Project.findById(req.body.projId).remove().exec(function() {
+router.delete('/projects', function(req, res, next) {
+  Project.findByIdAndRemove(req.body.projId, function(err) {
+    if (err) return next(err);
     res.end('Successfully deleted.');
   });
 });
 
-router.put('/projects', function(req, res) {
+router.put('/projects', function(req, res, next) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err || !project) return next(err);
     res.json(project);
