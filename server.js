@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const errors = require('./lib/errhandling');
+
 const PORT = process.env.PORT || 5555;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,6 +29,8 @@ app.get('/ipviewer', function(req, res) {
 
 app.use('/api', require('./routes/api'));
 app.use('/rs', require('./routes/rs'));
+
+app.use(errors);
 
 const server = app.listen(PORT, function() {
   console.log('Portfolio server listening at http://' + server.address().address + ':' + server.address().port);

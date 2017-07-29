@@ -17,8 +17,10 @@ const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
 mongoose.Promise = global.Promise;
 
 mongoose.connect(MONGODB_URI, function(err) {
-  if (err)
-    throw err;
+  if (err) {
+    console.log('Error connecting to MongoDB.');
+    return;
+  }
   console.log('Successfully connected to MongoDB');
 });
 
@@ -39,8 +41,7 @@ router.post('/login', function(req, res) {
     return auth;
   }).then(function(auth) {
     auth.checkPass(req.body.password, function(err, isMatch) {
-      if (err)
-        throw err;
+      if (err) return next(err);
       console.log('Authentication request for ' + req.body.username, isMatch);
       if (isMatch) {
         let token = jsonToken.sign(auth, TOKEN_KEY, {
@@ -55,15 +56,12 @@ router.post('/login', function(req, res) {
         });
       }
     });
-  }).catch(function(err) {
-    console.log(err);
-  });
+  }).catch(next);
 });
 
 router.get('/projects', function(req, res) {
   Project.find(function(err, projects) {
-    if (err)
-      console.log(err);
+    if (err) return next(err);
     projects.sort((a, b) => {
       a = a.date.split(' ');
       b = b.date.split(' ');
@@ -75,11 +73,7 @@ router.get('/projects', function(req, res) {
 
 router.get('/projects/:id', function(req, res) {
   Project.findById(req.params.id, function(err, project) {
-    if (err) {
-      res.json({
-        message: 'No project found with that ID.'
-      });
-    }
+    if (err) return next(err);
     res.json(project);
   });
 });
@@ -87,42 +81,16 @@ router.get('/projects/:id', function(req, res) {
 router.use(require('../lib/auth-middleware'));
 
 router.post('/projects', function(req, res) {
-  let projectParams = {
-    name:'Default Filler',
-    role:'Programmer',
-    shortDesc:'Default filler project.',
-    date:'Sploosh',
-    desc:'<p>Hey there!</p>',
-    img:'img/default.png',
-    type:'default'
-  };
-
-  for (let key in projectParams) {
-    if (projectParams.hasOwnProperty(key)) {
-      if (req.body[key]) {
-        projectParams[key] = req.body[key];
-      } else {
-        res.end('Missing form value', key);
-      }
-    }
-  }
-
   let newProject = new Project(projectParams);
   newProject.save(function(err) {
-    if (err) {
-      console.log(err);
-      res.end('Error adding project');
-    } else {
-      console.log('Successfully added: ' + projectParams.name);
-      res.end('Successfully added: ' + projectParams.name);
-    }
+    if (err) return next(err);
+    res.end('Successfully added: ' + projectParams.name);
   });
 });
 
 router.get('/users', function(req, res) {
   Auth.find(function(err, users) {
-    if (err)
-      console.log(err);
+    if (err) return next(err);
     res.json(users);
   });
 });
@@ -135,8 +103,7 @@ router.delete('/projects', function(req, res) {
 
 router.put('/projects', function(req, res) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
-    if (err || !project)
-      console.log(err);
+    if (err || !project) return next(err);
     res.end('Successfully updated.');
   });
 });
