@@ -10,16 +10,15 @@
     return false;
   }
 
-  // let refreshOptions = function() {
-  //   $('.edit-selection').first().siblings().remove();
-  //   for (let i = 0;i < Project.projects.length;i++) {
-  //     $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
-  //   }
-  // };
+  let refreshOptions = function() {
+    $('.edit-selection').first().siblings().remove();
+    for (let i = 0;i < Project.projects.length;i++) {
+      $('.edit-selection').append('<option data-idx=' + i + '>' + Project.projects[i].name + '</option>');
+    }
+  };
 
   function refreshProjects() {
-    //Project.preloadProjects(refreshOptions);
-    document.location.reload(false); //temporary until I can clean the hell out of this admin.js mess
+    Project.preloadProjects(refreshOptions);
   }
 
   function initLoginForm() {
