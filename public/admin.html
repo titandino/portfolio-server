@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js" charset="utf-8"></script>
   <script script id="project-template" type="text/x-handlebars-template">
-    <article class="box-shad flex-block" data-roles="{{roles}}">
+    <article class="box-shad col box-50" data-roles="{{roles}}">
       <div class='project-heading'>
         <h3>{{name}}</h3>
         <p>{{role}}</p>
@@ -16,12 +16,13 @@
         <p>{{date}}</p>
       </div>
       <div class="hr"></div>
-      <div class="box-shad proj-body-container">
-        <div class="proj-card">
-          <div class="proj-front">
+      <div class="box-shad card-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="card">
+          <img src="{{img}}" alt="" style="opacity: 0;"/>
+          <div class="front">
             <img src="{{img}}" alt=""/>
           </div>
-          <div class="proj-back">
+          <div class="back">
             <section class="project-body">
               {{{desc}}}
             </section>
@@ -44,7 +45,7 @@
     </nav>
     <main>
       <section class="admintab-section" id="login-section">
-        <section class="box-shad">
+        <section class="box-shad box-100">
           <h3>Login</h3>
           <form class="form-login" action="#" method="post">
             <label>
@@ -57,7 +58,7 @@
         </section>
       </section>
       <section class="admintab-section" id="add-project">
-        <section class="box-shad">
+        <section class="box-shad box-100">
           <h3>Add Project</h3>
           <form class="form-add-project" action="#" method="post">
             <label>
@@ -90,10 +91,10 @@
         </section>
       </section>
       <section class="admintab-section" id="edit-project">
-        <section class="box-shad">
+        <section class="box-shad box-100">
           <h3>Edit Project</h3>
           <select class="edit-selection">
-            <option selected disabled hidden>Choose Project</option>
+            <option selected hidden>Choose Project</option>
           </select>
           <form class="form-edit-project" action="#" method="post">
             <label>
