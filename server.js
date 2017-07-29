@@ -21,9 +21,9 @@ app.get('/admin', function(req, res) {
   res.sendFile(path.join(__dirname, './public/admin.html'));
 });
 
-// app.get('/asteroids', function(req, res) {
-//   res.redirect('http://titandino.github.io/canvas-game');
-// });
+app.get('/ipviewer', function(req, res) {
+  res.sendFile(path.join(__dirname, './public/ipviewer.html'));
+});
 
 app.use('/api', require('./routes/api'));
 app.use('/rs', require('./routes/rs'));

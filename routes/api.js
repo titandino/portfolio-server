@@ -135,7 +135,7 @@ router.delete('/projects', function(req, res) {
 
 router.put('/projects', function(req, res) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
-    if (err)
+    if (err || !project)
       console.log(err);
     res.end('Successfully updated.');
   });
