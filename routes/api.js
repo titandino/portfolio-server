@@ -84,7 +84,7 @@ router.post('/projects', function(req, res) {
   let newProject = new Project(projectParams);
   newProject.save(function(err) {
     if (err) return next(err);
-    res.end('Successfully added: ' + projectParams.name);
+    res.json(newProject);
   });
 });
 
@@ -104,7 +104,7 @@ router.delete('/projects', function(req, res) {
 router.put('/projects', function(req, res) {
   Project.findByIdAndUpdate(req.body._id, req.body, function(err, project) {
     if (err || !project) return next(err);
-    res.end('Successfully updated.');
+    res.end(project);
   });
 });
 
