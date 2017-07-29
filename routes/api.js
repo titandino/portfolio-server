@@ -83,7 +83,7 @@ router.get('/projects/:id', function(req, res) {
 router.use(require('../lib/auth-middleware'));
 
 router.post('/projects', function(req, res) {
-  let newProject = new Project(projectParams);
+  let newProject = new Project(req.body);
   newProject.save(function(err) {
     if (err) return next(err);
     res.json(newProject);
