@@ -9,10 +9,11 @@ module.exports = {
   plugins: [
     new HTMLPlugin({
       template: `${__dirname}/app/index.html`,
+      filename: `index.html`
     }),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loaders: [
