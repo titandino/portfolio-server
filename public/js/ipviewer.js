@@ -18,9 +18,9 @@ function populate() {
   markers = [];
 
   ips.forEach(function(ip) {
-    $.getJSON('https://freegeoip.net/json/' + ip, function(data) {
+    $.getJSON('/api/geolocate/' + ip, function(data) {
       let info = new google.maps.InfoWindow({
-        content: '<div class="map-info-box"><p>' + data.city + ', ' + data.region_name + ', ' + data.zip_code + '</p><p>' + ip + '</p></div>'
+        content: '<div class="map-info-box"><p>' + data.city + ', ' + data.region_name + ', ' + data.zip + '</p><p>' + ip + '</p></div>'
       });
       let marker = new google.maps.Marker({
         position: { lat: data.latitude, lng: data.longitude },

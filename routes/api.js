@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const http = require('http');
 const mongoose = require('mongoose');
 const jsonToken = require('jsonwebtoken');
 
@@ -11,6 +12,7 @@ const router = express.Router();
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio-server';
 const TOKEN_KEY = process.env.TOKEN_KEY || 'testtestmeme';
+const IPSTACK_KEY = process.env.IPSTACK_KEY || 'test';
 
 const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
 
@@ -22,6 +24,20 @@ mongoose.connect(MONGODB_URI, function(err) {
     return;
   }
   console.log('Successfully connected to MongoDB');
+});
+
+router.get('/geolocate/:ip', function(req, res, next) {
+  http.get('http://api.ipstack.com/'+req.params.ip+'?access_key='+IPSTACK_KEY+'&format=1', data => {
+    let body = '';
+
+    data.on('data', chunk => {
+        body += chunk;
+    });
+
+    data.on('end', () => {
+      res.json(JSON.parse(body));
+    });
+  });
 });
 
 router.post('/login', function(req, res, next) {
