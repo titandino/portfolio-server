@@ -1,38 +1,86 @@
 const HTMLPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: `${__dirname}/app/entry.js`,
+  entry: {
+    home: [
+      `${__dirname}/app/index.js`
+    ],
+    style: [
+      `${__dirname}/app/partials/main.scss`
+    ],
+    admin: [
+      `${__dirname}/app/js/admin.js`
+    ],
+    rs: [
+      `${__dirname}/app/js/rs.js`
+    ],
+    ipviewer: [
+      `${__dirname}/app/js/ipviewer.js`
+    ]
+  },
   output: {
-    filename: 'bundle.js',
-    path: `${__dirname}/build`,
+    filename: '[name].js',
+    path: `${__dirname}/build`
   },
   plugins: [
     new HTMLPlugin({
+      inject: true,
+      filename: 'index.html',
       template: `${__dirname}/app/index.html`,
-      filename: `index.html`
+      chunks: ['home', 'style']
     }),
+    new HTMLPlugin({
+      inject: true,
+      filename: 'admin.html',
+      template: `${__dirname}/app/admin.html`,
+      chunks: ['home', 'admin', 'style']
+    }),
+    new HTMLPlugin({
+      inject: true,
+      filename: 'rs.html',
+      template: `${__dirname}/app/rs.html`,
+      chunks: ['rs', 'style']
+    }),
+    new HTMLPlugin({
+      inject: true,
+      filename: 'ipviewer.html',
+      template: `${__dirname}/app/ipviewer.html`,
+      chunks: ['ipviewer', 'style']
+    }),
+    new CopyPlugin([
+      { from: `${__dirname}/app/asteroids`, to: `${__dirname}/build/asteroids` },
+    ]),
   ],
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
-        ]
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: [{
+          loader: require.resolve('babel-loader'),
+          options: {
+            cacheDirectory: true
+          },
+        }]
+      },
+      {
+        test: /\.(html)$/,
+        use: ['html-loader']
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
       },
       {
-        test: /\.html$/,
-        loader: ['html-loader']
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
       },
     ],
   },

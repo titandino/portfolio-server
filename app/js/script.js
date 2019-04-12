@@ -1,5 +1,3 @@
-'use strict';
-
 (function(ctx) {
   var numRendered = 0;
   Project.projects = [];

@@ -18,7 +18,7 @@ const TOKEN_EXPIRY_TIME = 60 * 60 * 24;
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(MONGODB_URI, function(err) {
+mongoose.connect(MONGODB_URI, { useMongoClient: true }, function(err) {
   if (err) {
     console.log('Error connecting to MongoDB.');
     return;
