@@ -51,6 +51,8 @@ module.exports = {
     new CopyPlugin([
       { from: `${__dirname}/app/asteroids`, to: `${__dirname}/build/asteroids` },
       { from: `${__dirname}/app/img`, to: `${__dirname}/build/img` },
+      { from: `${__dirname}/app/favicon.ico`, to: `${__dirname}/build/favicon.ico` },
+      { from: `${__dirname}/app/robots.txt`, to: `${__dirname}/build/robots.txt` },
     ]),
   ],
   module: {
