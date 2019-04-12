@@ -50,6 +50,7 @@ module.exports = {
     }),
     new CopyPlugin([
       { from: `${__dirname}/app/asteroids`, to: `${__dirname}/build/asteroids` },
+      { from: `${__dirname}/app/img`, to: `${__dirname}/build/img` },
     ]),
   ],
   module: {
